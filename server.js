@@ -9,7 +9,6 @@ import authRoutes from "./routes/auth.routes.js"
 import medicamentoRoutes from "./routes/medicamento.routes.js"
 import detalleRoutes from "./routes/detalleordencompra.routes.js"
 import viewRoutes from "./routes/view.routes.js"
-// Añadir cookie-parser para manejar cookies
 import cookieParser from "cookie-parser"
 
 dotenv.config()
