@@ -1,0 +1,87 @@
+<%- include('../partials/header', { title: 'Editar Medicamento' }) %>
+<%- include('../partials/navbar') %>
+  
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="text-primary"><i class="bi bi-pencil-square"></i> Editar Medicamento</h1>
+    <a href="/medicamentos" class="btn btn-secondary">
+      <i class="bi bi-arrow-left"></i> Volver
+    </a>
+  </div>
+  
+  <% if (typeof error !== 'undefined' && error) { %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <i class="bi bi-exclamation-triangle"></i> <%= error %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% } %>
+  
+  <div class="card shadow-neon">
+    <div class="card-body">
+      <form action="/medicamentos/<%= medicamento.id %>/edit" method="POST">
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="descripcionMed" class="form-label"><i class="bi bi-card-text"></i> Descripción</label>
+            <input type="text" class="form-control" id="descripcionMed" name="descripcionMed" value="<%= medicamento.descripcionMed %>" required>
+          </div>
+          <div class="col-md-6">
+            <label for="Marca" class="form-label"><i class="bi bi-tag"></i> Marca</label>
+            <input type="text" class="form-control" id="Marca" name="Marca" value="<%= medicamento.Marca || '' %>">
+          </div>
+        </div>
+        
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="Presentacion" class="form-label"><i class="bi bi-box"></i> Presentación</label>
+            <input type="text" class="form-control" id="Presentacion" name="Presentacion" value="<%= medicamento.Presentacion %>" required>
+          </div>
+          <div class="col-md-6">
+            <label for="stock" class="form-label"><i class="bi bi-boxes"></i> Stock</label>
+            <input type="number" class="form-control" id="stock" name="stock" value="<%= medicamento.stock %>" min="0" required>
+          </div>
+        </div>
+        
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="precioVentaUni" class="form-label"><i class="bi bi-currency-dollar"></i> Precio Unitario</label>
+            <input type="number" class="form-control" id="precioVentaUni" name="precioVentaUni" value="<%= medicamento.precioVentaUni %>" step="0.01" min="0" required>
+          </div>
+          <div class="col-md-6">
+            <label for="precioVentaPres" class="form-label"><i class="bi bi-currency-dollar"></i> Precio Presentación</label>
+            <input type="number" class="form-control" id="precioVentaPres" name="precioVentaPres" value="<%= medicamento.precioVentaPres || '' %>" step="0.01" min="0">
+          </div>
+        </div>
+        
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="fechaFabricacion" class="form-label"><i class="bi bi-calendar-event"></i> Fecha Fabricación</label>
+            <input type="date" class="form-control" id="fechaFabricacion" name="fechaFabricacion" value="<%= new Date(medicamento.fechaFabricacion).toISOString().split('T')[0] %>" required>
+          </div>
+          <div class="col-md-6">
+            <label for="fechaVencimiento" class="form-label"><i class="bi bi-calendar-x"></i> Fecha Vencimiento</label>
+            <input type="date" class="form-control" id="fechaVencimiento" name="fechaVencimiento" value="<%= new Date(medicamento.fechaVencimiento).toISOString().split('T')[0] %>" required>
+          </div>
+        </div>
+        
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <label for="CodTipoMed" class="form-label"><i class="bi bi-list-nested"></i> Código Tipo Medicamento</label>
+            <input type="number" class="form-control" id="CodTipoMed" name="CodTipoMed" value="<%= medicamento.CodTipoMed || '' %>">
+          </div>
+          <div class="col-md-6">
+            <label for="CodEscpec" class="form-label"><i class="bi bi-list-ul"></i> Código Especialidad</label>
+            <input type="number" class="form-control" id="CodEscpec" name="CodEscpec" value="<%= medicamento.CodEscpec || '' %>">
+          </div>
+        </div>
+        
+        <div class="d-grid">
+          <button type="submit" class="btn btn-warning">
+            <i class="bi bi-save"></i> Actualizar Medicamento
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+  
+<%- include('../partials/footer') %>

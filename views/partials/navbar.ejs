@@ -1,0 +1,52 @@
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <div class="container">
+    <a class="navbar-brand" href="/dashboard">
+      <i class="bi bi-capsule-pill"></i> NeoFarma
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/dashboard"><i class="bi bi-grid"></i> Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/medicamentos"><i class="bi bi-capsule"></i> Medicamentos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/detalles"><i class="bi bi-receipt"></i> Detalles</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/compras/realizar"><i class="bi bi-cart-plus"></i> Comprar</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav">
+        <% if (locals.user) { %>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-person-circle"></i> <%= locals.user.nombre %> 
+              <% if (locals.user.roles && locals.user.roles.includes('admin')) { %>
+                <span class="badge bg-danger">Admin</span>
+              <% } else if (locals.user.roles && locals.user.roles.includes('mod')) { %>
+                <span class="badge bg-warning">Mod</span>
+              <% } else { %>
+                <span class="badge bg-info">Usuario</span>
+              <% } %>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="/logout"><i class="bi bi-box-arrow-right"></i> Cerrar Sesión</a></li>
+            </ul>
+          </li>
+        <% } else { %>
+          <li class="nav-item">
+            <a class="nav-link" href="/login"><i class="bi bi-box-arrow-in-right"></i> Iniciar Sesión</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/register"><i class="bi bi-person-plus"></i> Registrarse</a>
+          </li>
+        <% } %>
+      </ul>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,58 @@
+<%- include('partials/header', { title: 'Dashboard' }) %>
+<%- include('partials/navbar') %>
+  
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12">
+      <div class="card shadow-neon mb-4">
+        <div class="card-body text-center">
+          <h1 class="card-title text-primary">Bienvenido al Sistema de Farmacia</h1>
+          <p class="card-text">Selecciona una opción del menú para comenzar.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row mt-4">
+    <div class="col-md-4 mb-4">
+      <div class="card dashboard-card h-100 text-primary">
+        <div class="card-body text-center">
+          <i class="bi bi-capsule"></i>
+          <h5 class="card-title">Medicamentos</h5>
+          <p class="card-text">Gestiona el inventario de medicamentos.</p>
+          <a href="/medicamentos" class="btn btn-primary">
+            <i class="bi bi-arrow-right-circle"></i> Ver Medicamentos
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-4 mb-4">
+      <div class="card dashboard-card h-100 text-success">
+        <div class="card-body text-center">
+          <i class="bi bi-receipt"></i>
+          <h5 class="card-title">Detalles de Compra</h5>
+          <p class="card-text">Consulta los detalles de órdenes de compra.</p>
+          <a href="/detalles" class="btn btn-success">
+            <i class="bi bi-arrow-right-circle"></i> Ver Detalles
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-4 mb-4">
+      <div class="card dashboard-card h-100 text-danger">
+        <div class="card-body text-center">
+          <i class="bi bi-cart-plus"></i>
+          <h5 class="card-title">Realizar Compra</h5>
+          <p class="card-text">Realiza una nueva compra de medicamentos.</p>
+          <a href="/compras/realizar" class="btn btn-danger">
+            <i class="bi bi-arrow-right-circle"></i> Comprar
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+<%- include('partials/footer') %>

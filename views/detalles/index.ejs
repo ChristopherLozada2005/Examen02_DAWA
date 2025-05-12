@@ -1,0 +1,77 @@
+<%- include('../partials/header', { title: 'Detalles de Compra' }) %>
+<%- include('../partials/navbar') %>
+  
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="text-primary"><i class="bi bi-receipt"></i> Detalles de Compra</h1>
+    <% if (locals.user && locals.user.roles && locals.user.roles.includes('admin')) { %>
+      <a href="/detalles/create" class="btn btn-primary">
+        <i class="bi bi-plus-circle"></i> Nuevo Detalle
+      </a>
+    <% } %>
+  </div>
+  
+  <% if (typeof message !== 'undefined' && message) { %>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <i class="bi bi-check-circle"></i> <%= message %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% } %>
+  
+  <div class="card shadow-neon">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nro. Orden</th>
+              <th>Medicamento</th>
+              <th>Cantidad</th>
+              <th>Precio</th>
+              <th>Monto Total</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if (detalles && detalles.length > 0) { %>
+              <% detalles.forEach(detalle => { %>
+                <tr>
+                  <td><%= detalle.id %></td>
+                  <td><%= detalle.NroOrdenC %></td>
+                  <td><%= detalle.Medicamento ? detalle.Medicamento.descripcionMed : 'N/A' %></td>
+                  <td><%= detalle.cantidad %></td>
+                  <td>$<%= detalle.precio %></td>
+                  <td>$<%= detalle.montouni %></td>
+                  <td>
+                    <div class="btn-group" role="group">
+                      <a href="/detalles/<%= detalle.id %>" class="btn btn-sm btn-info">
+                        <i class="bi bi-eye"></i>
+                      </a>
+                      <% if (locals.user && locals.user.roles && (locals.user.roles.includes('admin') || locals.user.roles.includes('mod'))) { %>
+                        <a href="/detalles/<%= detalle.id %>/edit" class="btn btn-sm btn-warning">
+                          <i class="bi bi-pencil"></i>
+                        </a>
+                      <% } %>
+                      <% if (locals.user && locals.user.roles && locals.user.roles.includes('admin')) { %>
+                        <a href="/detalles/<%= detalle.id %>/delete" class="btn btn-sm btn-danger">
+                          <i class="bi bi-trash"></i>
+                        </a>
+                      <% } %>
+                    </div>
+                  </td>
+                </tr>
+              <% }) %>
+            <% } else { %>
+              <tr>
+                <td colspan="7" class="text-center">No hay detalles de compra disponibles</td>
+              </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+  
+<%- include('../partials/footer') %>

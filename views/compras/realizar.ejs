@@ -1,0 +1,56 @@
+<%- include('../partials/header', { title: 'Realizar Compra' }) %>
+<%- include('../partials/navbar') %>
+  
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="text-primary"><i class="bi bi-cart-plus"></i> Realizar Compra</h1>
+    <a href="/dashboard" class="btn btn-secondary">
+      <i class="bi bi-arrow-left"></i> Volver
+    </a>
+  </div>
+  
+  <% if (typeof error !== 'undefined' && error) { %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <i class="bi bi-exclamation-triangle"></i> <%= error %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% } %>
+  
+  <div class="card shadow-neon">
+    <div class="card-body">
+      <form action="/compras/realizar" method="POST">
+        <div class="row mb-4">
+          <div class="col-md-12">
+            <label for="CodMedicamento" class="form-label"><i class="bi bi-capsule"></i> Medicamento</label>
+            <select class="form-select" id="CodMedicamento" name="CodMedicamento" required>
+              <option value="">Seleccione un medicamento</option>
+              <% medicamentos.forEach(med => { %>
+                <option value="<%= med.id %>" <%= compra.CodMedicamento == med.id ? 'selected' : '' %> 
+                        <%= med.stock <= 0 ? 'disabled' : '' %>>
+                  <%= med.descripcionMed %> - <%= med.Marca || 'Sin marca' %> 
+                  (Stock: <%= med.stock %>) - $<%= med.precioVentaUni %>
+                  <%= med.stock <= 0 ? ' - SIN STOCK' : '' %>
+                </option>
+              <% }) %>
+            </select>
+          </div>
+        </div>
+        
+        <div class="row mb-4">
+          <div class="col-md-12">
+            <label for="cantidad" class="form-label"><i class="bi bi-123"></i> Cantidad</label>
+            <input type="number" class="form-control" id="cantidad" name="cantidad" value="<%= compra.cantidad || 1 %>" min="1" required>
+          </div>
+        </div>
+        
+        <div class="d-grid">
+          <button type="submit" class="btn btn-success">
+            <i class="bi bi-cart-check"></i> Realizar Compra
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+  
+<%- include('../partials/footer') %>

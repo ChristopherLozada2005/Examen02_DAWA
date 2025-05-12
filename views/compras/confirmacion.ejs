@@ -1,0 +1,45 @@
+<%- include('../partials/header', { title: 'Compra Confirmada' }) %>
+<%- include('../partials/navbar') %>
+  
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-neon">
+        <div class="card-header bg-success text-white">
+          <h3 class="mb-0"><i class="bi bi-check-circle"></i> ¡Compra Realizada con Éxito!</h3>
+        </div>
+        <div class="card-body">
+          <div class="text-center mb-4">
+            <i class="bi bi-check-circle-fill text-success" style="font-size: 5rem; text-shadow: 0 0 15px rgba(0, 255, 157, 0.7);"></i>
+          </div>
+          
+          <h4 class="text-center mb-4 text-primary">Detalles de la Compra</h4>
+          
+          <div class="row">
+            <div class="col-md-6">
+              <p><strong class="text-primary">Número de Orden:</strong> <%= detalle.NroOrdenC %></p>
+              <p><strong class="text-primary">Medicamento:</strong> <%= detalle.Medicamento.descripcionMed %></p>
+              <p><strong class="text-primary">Marca:</strong> <%= detalle.Medicamento.Marca || '-' %></p>
+            </div>
+            <div class="col-md-6">
+              <p><strong class="text-primary">Cantidad:</strong> <%= detalle.cantidad %></p>
+              <p><strong class="text-primary">Precio Unitario:</strong> $<%= detalle.precio %></p>
+              <p><strong class="text-primary">Total:</strong> $<%= detalle.montouni %></p>
+            </div>
+          </div>
+          
+          <div class="d-grid gap-2 mt-4">
+            <a href="/compras/realizar" class="btn btn-primary">
+              <i class="bi bi-cart-plus"></i> Realizar Otra Compra
+            </a>
+            <a href="/dashboard" class="btn btn-secondary">
+              <i class="bi bi-grid"></i> Volver al Dashboard
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+<%- include('../partials/footer') %>

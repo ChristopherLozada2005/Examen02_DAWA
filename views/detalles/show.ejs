@@ -1,0 +1,112 @@
+<%- include('../partials/header', { title: 'Detalle de Compra' }) %>
+<%- include('../partials/navbar') %>
+  
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="text-primary"><i class="bi bi-receipt"></i> Detalle de Compra</h1>
+    <div>
+      <a href="/detalles" class="btn btn-secondary">
+        <i class="bi bi-arrow-left"></i> Volver
+      </a>
+      <% if (locals.user && locals.user.roles && (locals.user.roles.includes('admin') || locals.user.roles.includes('mod'))) { %>
+        <a href="/detalles/<%= detalle.id %>/edit" class="btn btn-warning">
+          <i class="bi bi-pencil"></i> Editar
+        </a>
+      <% } %>
+      <% if (locals.user && locals.user.roles && locals.user.roles.includes('admin')) { %>
+        <a href="/detalles/<%= detalle.id %>/delete" class="btn btn-danger">
+          <i class="bi bi-trash"></i> Eliminar
+        </a>
+      <% } %>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card shadow-neon mb-4">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0"><i class="bi bi-info-circle"></i> Información de la Compra</h5>
+        </div>
+        <div class="card-body">
+          <table class="table">
+            <tr>
+              <th style="width: 40%" class="text-primary">ID:</th>
+              <td><%= detalle.id %></td>
+            </tr>
+            <tr>
+              <th class="text-primary">Nro. Orden:</th>
+              <td><%= detalle.NroOrdenC %></td>
+            </tr>
+            <tr>
+              <th class="text-primary">Descripción:</th>
+              <td><%= detalle.descripcion || '-' %></td>
+            </tr>
+            <tr>
+              <th class="text-primary">Cantidad:</th>
+              <td><%= detalle.cantidad %></td>
+            </tr>
+            <tr>
+              <th class="text-primary">Precio Unitario:</th>
+              <td>$<%= detalle.precio %></td>
+            </tr>
+            <tr>
+              <th class="text-primary">Monto Total:</th>
+              <td>$<%= detalle.montouni %></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-6">
+      <div class="card shadow-neon">
+        <div class="card-header bg-success text-white">
+          <h5 class="mb-0"><i class="bi bi-capsule"></i> Información del Medicamento</h5>
+        </div>
+        <div class="card-body">
+          <% if (detalle.Medicamento) { %>
+            <table class="table">
+              <tr>
+                <th style="width: 40%" class="text-primary">ID:</th>
+                <td><%= detalle.Medicamento.id %></td>
+              </tr>
+              <tr>
+                <th class="text-primary">Descripción:</th>
+                <td><%= detalle.Medicamento.descripcionMed %></td>
+              </tr>
+              <tr>
+                <th class="text-primary">Marca:</th>
+                <td><%= detalle.Medicamento.Marca || '-' %></td>
+              </tr>
+              <tr>
+                <th class="text-primary">Presentación:</th>
+                <td><%= detalle.Medicamento.Presentacion %></td>
+              </tr>
+              <tr>
+                <th class="text-primary">Stock Actual:</th>
+                <td>
+                  <% if (detalle.Medicamento.stock <= 5) { %>
+                    <span class="badge bg-danger"><%= detalle.Medicamento.stock %></span>
+                  <% } else if (detalle.Medicamento.stock <= 20) { %>
+                    <span class="badge bg-warning"><%= detalle.Medicamento.stock %></span>
+                  <% } else { %>
+                    <span class="badge bg-success"><%= detalle.Medicamento.stock %></span>
+                  <% } %>
+                </td>
+              </tr>
+            </table>
+            <div class="d-grid mt-3">
+              <a href="/medicamentos/<%= detalle.Medicamento.id %>" class="btn btn-primary">
+                <i class="bi bi-eye"></i> Ver Medicamento Completo
+              </a>
+            </div>
+          <% } else { %>
+            <p class="text-center">No se encontró información del medicamento</p>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+<%- include('../partials/footer') %>

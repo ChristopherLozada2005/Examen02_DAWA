@@ -1,0 +1,35 @@
+<%- include('../partials/header', { title: 'Eliminar Medicamento' }) %>
+<%- include('../partials/navbar') %>
+  
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-neon">
+        <div class="card-header bg-danger text-white">
+          <h3 class="mb-0"><i class="bi bi-exclamation-triangle"></i> Confirmar Eliminación</h3>
+        </div>
+        <div class="card-body text-center">
+          <div class="mb-4">
+            <i class="bi bi-trash text-danger" style="font-size: 4rem; text-shadow: 0 0 15px rgba(255, 46, 99, 0.7);"></i>
+          </div>
+          
+          <p class="fs-5 mb-4">¿Está seguro que desea eliminar este medicamento?</p>
+          <p class="text-muted mb-4">Esta acción no se puede deshacer.</p>
+          
+          <form action="/medicamentos/<%= id %>/delete" method="POST">
+            <div class="d-flex justify-content-center gap-3">
+              <a href="/medicamentos" class="btn btn-secondary">
+                <i class="bi bi-x-circle"></i> Cancelar
+              </a>
+              <button type="submit" class="btn btn-danger">
+                <i class="bi bi-trash"></i> Eliminar
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+<%- include('../partials/footer') %>

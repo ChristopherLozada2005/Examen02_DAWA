@@ -1,0 +1,101 @@
+<%- include('../partials/header', { title: 'Detalle de Medicamento' }) %>
+<%- include('../partials/navbar') %>
+  
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="text-primary"><i class="bi bi-capsule"></i> Detalle de Medicamento</h1>
+    <div>
+      <a href="/medicamentos" class="btn btn-secondary">
+        <i class="bi bi-arrow-left"></i> Volver
+      </a>
+      <% if (locals.user && locals.user.roles && (locals.user.roles.includes('admin') || locals.user.roles.includes('mod'))) { %>
+        <a href="/medicamentos/<%= medicamento.id %>/edit" class="btn btn-warning">
+          <i class="bi bi-pencil"></i> Editar
+        </a>
+      <% } %>
+      <% if (locals.user && locals.user.roles && locals.user.roles.includes('admin')) { %>
+        <a href="/medicamentos/<%= medicamento.id %>/delete" class="btn btn-danger">
+          <i class="bi bi-trash"></i> Eliminar
+        </a>
+      <% } %>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card shadow-neon mb-4">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0"><i class="bi bi-info-circle"></i> Información del Medicamento</h5>
+        </div>
+        <div class="card-body">
+          <table class="table">
+            <tr>
+              <th style="width: 40%" class="text-primary">ID:</th>
+              <td><%= medicamento.id %></td>
+            </tr>
+            <tr>
+              <th class="text-primary">Descripción:</th>
+              <td><%= medicamento.descripcionMed %></td>
+            </tr>
+            <tr>
+              <th class="text-primary">Marca:</th>
+              <td><%= medicamento.Marca || '-' %></td>
+            </tr>
+            <tr>
+              <th class="text-primary">Presentación:</th>
+              <td><%= medicamento.Presentacion %></td>
+            </tr>
+            <tr>
+              <th class="text-primary">Stock:</th>
+              <td>
+                <% if (medicamento.stock <= 5) { %>
+                  <span class="badge bg-danger"><%= medicamento.stock %></span>
+                <% } else if (medicamento.stock <= 20) { %>
+                  <span class="badge bg-warning"><%= medicamento.stock %></span>
+                <% } else { %>
+                  <span class="badge bg-success"><%= medicamento.stock %></span>
+                <% } %>
+              </td>
+            </tr>
+            <tr>
+              <th class="text-primary">Precio Unitario:</th>
+              <td>$<%= medicamento.precioVentaUni %></td>
+            </tr>
+            <tr>
+              <th class="text-primary">Precio Presentación:</th>
+              <td>$<%= medicamento.precioVentaPres || '-' %></td>
+            </tr>
+            <tr>
+              <th class="text-primary">Fecha Fabricación:</th>
+              <td><%= new Date(medicamento.fechaFabricacion).toLocaleDateString() %></td>
+            </tr>
+            <tr>
+              <th class="text-primary">Fecha Vencimiento:</th>
+              <td><%= new Date(medicamento.fechaVencimiento).toLocaleDateString() %></td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-6">
+      <div class="card shadow-neon">
+        <div class="card-header bg-success text-white">
+          <h5 class="mb-0"><i class="bi bi-lightning"></i> Acciones</h5>
+        </div>
+        <div class="card-body">
+          <div class="d-grid gap-3">
+            <a href="/detalles/medicamento/<%= medicamento.id %>" class="btn btn-info">
+              <i class="bi bi-receipt"></i> Ver Historial de Compras
+            </a>
+            <a href="/compras/realizar" class="btn btn-success">
+              <i class="bi bi-cart-plus"></i> Realizar Compra
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+<%- include('../partials/footer') %>
