@@ -10,6 +10,8 @@ import medicamentoRoutes from "./routes/medicamento.routes.js"
 import detalleRoutes from "./routes/detalleordencompra.routes.js"
 import viewRoutes from "./routes/view.routes.js"
 import cookieParser from "cookie-parser"
+import createAdmin from "./create-admin.js"
+
 
 dotenv.config()
 
