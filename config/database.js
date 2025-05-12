@@ -8,7 +8,7 @@ const sequelize = new Sequelize(
   process.env.DB_PASSWORD || '',
   {
     host: process.env.DB_HOST || 'localhost',
-    dialect: 'mysql',
+    dialect: 'postgres',
     logging: false // Para evitar logs innecesarios en producción
   }
 );
