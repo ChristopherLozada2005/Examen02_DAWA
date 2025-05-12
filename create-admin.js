@@ -5,20 +5,17 @@ import sequelize from "./config/database.js"
 
 dotenv.config()
 
-async function createAdmin() {
+const createAdmin = async () => {
   try {
-    // Conectar a la base de datos
     await sequelize.authenticate()
     console.log("Conexión a la base de datos establecida.")
 
-    // Verificar si ya existe un usuario con este email
     const existingUser = await Usuario.findOne({ where: { email: "admin@farmacia.com" } })
     if (existingUser) {
       console.log("Ya existe un usuario con este email.")
-      process.exit(0)
+      return
     }
 
-    // Crear el usuario administrador
     const hashedPassword = bcrypt.hashSync("admin123", 8)
     const usuario = await Usuario.create({
       nombre: "Administrador",
@@ -28,26 +25,20 @@ async function createAdmin() {
 
     console.log("Usuario creado con ID:", usuario.id)
 
-    // Asignar el rol de administrador
-    const rolAdmin = await Rol.findOne({ where: { nombre: "admin" } })
+    let rolAdmin = await Rol.findOne({ where: { nombre: "admin" } })
     if (!rolAdmin) {
       console.log("El rol 'admin' no existe. Creando roles...")
       await Rol.bulkCreate([{ nombre: "user" }, { nombre: "admin" }, { nombre: "mod" }])
-      const nuevoRolAdmin = await Rol.findOne({ where: { nombre: "admin" } })
-      await usuario.setRols([nuevoRolAdmin])
-    } else {
-      await usuario.setRols([rolAdmin])
+      rolAdmin = await Rol.findOne({ where: { nombre: "admin" } })
     }
+    await usuario.setRoles([rolAdmin])
 
     console.log("Usuario administrador creado exitosamente:")
     console.log("Email: admin@farmacia.com")
     console.log("Contraseña: admin123")
-
-    process.exit(0)
   } catch (error) {
     console.error("Error al crear el administrador:", error)
-    process.exit(1)
   }
 }
 
-createAdmin()
+export default createAdmin
