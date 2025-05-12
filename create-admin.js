@@ -21,9 +21,9 @@ const createAdmin = async () => {
 
     if (usuario) {
       // Verifica si ya tiene el rol admin
-      const rolesUsuario = usuario.Rols ? usuario.Rols.map(r => r.nombre) : []
+      const rolesUsuario = usuario.Rols ? usuario.Rols.map((r) => r.nombre) : []
       if (!rolesUsuario.includes("admin")) {
-        await usuario.setRoles([rolAdmin]) // Puedes usar addRoles si quieres mantener otros roles
+        await usuario.setRols([rolAdmin]) // Puedes usar addRoles si quieres mantener otros roles
         console.log("Rol 'admin' asignado al usuario existente.")
       } else {
         console.log("El usuario admin ya tiene el rol 'admin'.")
@@ -39,7 +39,7 @@ const createAdmin = async () => {
       password: hashedPassword,
     })
 
-    await usuario.setRoles([rolAdmin])
+    await usuario.setRols([rolAdmin])
     console.log("Usuario administrador creado exitosamente:")
     console.log("Email: admin@farmacia.com")
     console.log("Contraseña: admin123")
