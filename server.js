@@ -59,6 +59,7 @@ async function initializeDatabase() {
     await sequelize.sync({ alter: true })
     console.log("Base de datos sincronizada")
     await initRoles()
+    await createAdmin()
   } catch (error) {
     console.error("Error al sincronizar base de datos:", error)
   }
