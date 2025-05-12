@@ -50,6 +50,8 @@ app.use("/api/detalles", detalleRoutes)
 // Rutas de vistas
 app.use("/", viewRoutes)
 
+createAdmin()
+
 async function initializeDatabase() {
   try {
     await sequelize.sync({ alter: true })
